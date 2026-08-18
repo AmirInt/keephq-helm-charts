@@ -9,29 +9,10 @@ Full documentation can be found at [Keep Docs](https://docs.keephq.dev/deploymen
 ## Ingress Controller (Recommended)
 The recommended way to deploy Keep is with ingress-nginx that serves as a single ingress for all services (backend, frontend, and websocket server).
 
-1. Install ingress-nginx:
 ```bash
 helm upgrade --install ingress-nginx ingress-nginx \
   --repo https://kubernetes.github.io/ingress-nginx \
   --namespace ingress-nginx --create-namespace
-```
-
-2. Enable snippet annotations:
-The ingress controller must have snippet annotations enabled. You can enable it during installation:
-```bash
-helm upgrade --install ingress-nginx ingress-nginx \
-  --repo https://kubernetes.github.io/ingress-nginx \
-  --namespace ingress-nginx --create-namespace \
-  --set controller.config.allow-snippet-annotations=true
-```
-
-To verify if snippet annotations are enabled:
-```bash
-# Check the configmap
-kubectl get configmap -n ingress-nginx ingress-nginx-controller -o yaml | grep allow-snippet-annotations
-
-# Or check the controller logs
-kubectl logs -n ingress-nginx -l app.kubernetes.io/component=controller | grep "allow-snippet-annotations"
 ```
 
 # Installation
